@@ -1,7 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
-app.use(express.json());
 
+// Middleware
+app.use(express.json());
+app.use(cors()); // تمكين الـ CORS لكل الطلبات
+
+// Routes
 app.post('/api/reset-password', (req, res) => {
   const { email } = req.body;
   res.json({ message: `Password reset email sent to ${email}` });
@@ -36,7 +41,9 @@ app.post('/api/profile-update', (req, res) => {
   res.json({ message: `Profile updated with skill: ${skill}, phone: ${phoneNumber}, experience: ${yearsOfExperience}` });
 });
 
+// Start Server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
